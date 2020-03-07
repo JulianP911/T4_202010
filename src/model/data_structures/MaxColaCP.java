@@ -31,7 +31,7 @@ public class MaxColaCP<T extends Comparable<T>> implements Iterable<T>
 	@SuppressWarnings("unchecked")
 	public MaxColaCP(int capacity) 
 	{
-		pq = (T[]) new Object[capacity + 1];
+		pq = (T[]) new Comparable[capacity + 1];
 		n = 0;	
 	}
 
@@ -52,7 +52,7 @@ public class MaxColaCP<T extends Comparable<T>> implements Iterable<T>
 	public MaxColaCP(int initCapacity, Comparable<T> comparator) 
 	{
 		this.comparador = comparator;
-		pq = (T[]) new Object[initCapacity + 1];
+		pq = (T[]) new Comparable[initCapacity + 1];
 		n = 0;
 	}
 
@@ -94,7 +94,7 @@ public class MaxColaCP<T extends Comparable<T>> implements Iterable<T>
 	{
 		assert capacity > n;
 		@SuppressWarnings("unchecked")
-		T[] temp = (T[]) new Object[capacity];
+		T[] temp = (T[]) new Comparable[capacity];
 		for (int i = 1; i <= n; i++) {
 			temp[i] = pq[i];
 		}

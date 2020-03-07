@@ -24,11 +24,14 @@ public class Modelo {
 	public static String PATH = "./data/comparendos_DEI_2018_Bogotá_D.C_small1.geojson";
 //	public static String PATH = "./data/comparendos_DEI_2018_Bogotá_D.C.geojson";
 	
+	/**
+	 * Lista de comparendos
+	 */
+	private List<Comparendo> datos;
 	
-	public List<Comparendo> cargarDatos() 
+	public void cargarDatos() 
 	{
-		//TODO Cambiar la clase del contenedor de datos por la Estructura de Datos propia adecuada para resolver el requerimiento 
-		List<Comparendo> datos = new ArrayList<Comparendo>();
+		datos = new ArrayList<Comparendo>();
 
 		JsonReader reader;
 		try 
@@ -72,7 +75,6 @@ public class Modelo {
 		{
 			System.out.println(e.getMessage());
 			e.printStackTrace();
-		}
-		return datos;			
+		}			
 	}
 }
