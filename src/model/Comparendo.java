@@ -81,7 +81,7 @@ public class Comparendo implements Comparable<Comparendo>
 	 * @param pLatitud Latitud del comparendo
 	 * @param pLongitud Longitud del comparendo
 	 */
-	public Comparendo(int objeId, Date fecha, String descripcion, String detencion, String claseVeh, String tipoSer, String codInfraccion, String localidadP, double lonP, double latP, String municipioP)
+	public Comparendo(int objeId, Date fecha, String descripcion, String detencion, String claseVeh, String tipoSer, String codInfraccion, String localidadP, String municipioP, double lonP, double latP)
 	{
 		objectId = objeId;
 		fecha_hora = fecha;
@@ -297,7 +297,7 @@ public class Comparendo implements Comparable<Comparendo>
 	}
 
 	/**
-	 * Compara los comparendos por fecha_hora para determinar si es mayor, menor o igual. 
+	 * Compara los comparendos por la latitud criterio de prioridad
 	 * Si las fechas_horas son iguales se compara por el objectid
 	 */
 	@Override
@@ -305,32 +305,17 @@ public class Comparendo implements Comparable<Comparendo>
 	{
 		int resultado = 0;
 
-		Date date1 = this.getFecha_hora();
-		Date date2 = pItem.fecha_hora;
-
-
-		if(date1.after(date2))         // Compara la fecha si es menor
+		if(this.getLatitud() < pItem.getLatitud())         // Compara la latitud si es menor
 		{
-			resultado  = -1;
+			resultado  = 1;
 		}
-		else if(date1.equals(date2))   // Compara la fecha si es igual y revisa la otra condicion
+		else if(this.getLatitud() == pItem.getLatitud())   // Compara la latitud si es igual
 		{
-			if(this.getObjective() < pItem.getObjective())
-			{
-				resultado = -1;
-			}
-			else if(this.getObjective() == pItem.getObjective())
-			{
-				resultado = 0;
-			}
-			else if(this.getObjective() > pItem.getObjective())
-			{
-				resultado = 1;
-			}
+			resultado = 0;
 		}
-		else if(date1.before(date2))    // Compara la fecha si es mayor
+		else if(this.getLatitud() > pItem.getLatitud())    // Compara la latitud si es mayor
 		{
-			resultado = 1;
+			resultado = -1;
 		}
 
 		return resultado;

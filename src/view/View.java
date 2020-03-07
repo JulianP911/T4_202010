@@ -14,9 +14,10 @@ public class View
 	    
 		public void printMenu()
 		{
-			System.out.println("1. Cargar Datos");
-			System.out.println("2. Exit");
-			System.out.println("Dar el numero de opcion a resolver, luego oprimir tecla Return: (e.g., 1):");
+			System.out.println("1. Cargar Muestra de Datos");
+			System.out.println("2. Requerimiento #1 - Mostrar los N comparendos que ocurrieron más al norte (basada en la latitud) y que involucraron un tipo de vehículo que está incluido en una lista (con una MaxColaCP).");
+			System.out.println("3. Requerimiento #2 - Mostrar los N comparendos que ocurrieron más al norte (basada en la latitud) y que involucraron un tipo de vehículo que está incluido en una lista (con una MaxHeapCP).");
+			System.out.println("4. Cerrar");
 		}
 
 		public void printMessage(String mensaje) {
@@ -26,6 +27,6 @@ public class View
 		
 		public void printModelo(Modelo modelo)
 		{
-			// TODO implementar
+			System.out.println(modelo);
 		}
 }
