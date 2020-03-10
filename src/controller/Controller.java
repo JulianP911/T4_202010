@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import model.Comparendo;
 import model.data_structures.MaxColaCP;
+import model.data_structures.MaxHeapCP;
 import model.logic.Modelo;
 import view.View;
 
@@ -41,14 +42,14 @@ public class Controller {
 			switch(option){
 			case 1:
 				long start1 = System.currentTimeMillis();
-				modelo.darColaPrioridadMaxCP();
+				modelo.darMaxColaCP();
 				long end1 = System.currentTimeMillis();
 
 				long start2 = System.currentTimeMillis();
-				// TODO Concetar con el metodo con MaxHeapCP
+				modelo.darMaxHeapCP();
 				long end2 = System.currentTimeMillis();
 
-				view.printMessage("El numero de comparendos es de: " + modelo.darColaPrioridadMaxCP().size() );
+				view.printMessage("El numero de comparendos es de: " + modelo.darMaxColaCP().size() );
 				view.printMessage("Tiempo de carga (seg) en MaxColaCP: " + (end1-start1)/1000.0);
 				view.printMessage("Tiempo de carga (seg) en MaxHeapCP: " + (end2-start2)/1000.0);
 				break;
@@ -66,7 +67,7 @@ public class Controller {
 
 				// Tiempo de ejecucion
 				long start3 = System.currentTimeMillis();
-				MaxColaCP<Comparendo> colaPrioridad = modelo.darComparendosMasNorteYTipo(listaTipo1);
+				MaxColaCP<Comparendo> colaPrioridad = modelo.darComparendosMasNorteYTipoCola(listaTipo1);
 				long end3 = System.currentTimeMillis();
 
 				// Informacion al usuario
@@ -97,13 +98,21 @@ public class Controller {
 
 				// Tiempo de ejecucion
 				long start4 = System.currentTimeMillis();
-				// TODO Conectar el metodo del requerimiento con MaxHeapPC
+				MaxHeapCP<Comparendo> qPrioridad = modelo.darComparendosMasNorteYTipoHeap(listaTipo2);
 				long end4 = System.currentTimeMillis();
 
 				view.printMessage("Tiempo de ejecucion requerimiento: " + (end4-start4)/1000.0);
 
 				view.printMessage("Los siguiente son los coparendos de la muestra y del tipo de servicio MaxHeapCP mas al norte:");
-				// TODO toca conectar la maxHeapCp con el iterador por eso esta en comentado para que revises es parecido al de arriba
+				
+				Iterator<Comparendo> resultado2 = qPrioridad.iterator();
+				int j = 0;
+				while(resultado2.hasNext() && j < entrada3)
+				{
+					Comparendo elemento = resultado2.next();
+					view.printMessage(elemento.getObjective() + ", " + elemento.getTipo_servi() + ", " + elemento.getLatitud()+ ", " + elemento.getLongitud());
+					j++;
+				}
 				break;
 
 			case 4:

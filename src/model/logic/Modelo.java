@@ -18,6 +18,7 @@ import com.google.gson.stream.JsonReader;
 
 import model.Comparendo;
 import model.data_structures.MaxColaCP;
+import model.data_structures.MaxHeapCP;
 
 /**
  * Definicion del modelo del mundo
@@ -90,7 +91,7 @@ public class Modelo {
 	/**
 	 * Convierte la lista de objetos cargados a cola de prioridad
 	 */
-	public MaxColaCP<Comparendo> darColaPrioridadMaxCP()
+	public MaxColaCP<Comparendo> darMaxColaCP()
 	{
 		MaxColaCP<Comparendo> colaPrioridad = new MaxColaCP<Comparendo>();
 		datos1 = cargarDatos();
@@ -108,8 +109,26 @@ public class Modelo {
 
 		return colaPrioridad;
 	}
+	
+	public MaxHeapCP<Comparendo> darMaxHeapCP()
+	{
+		MaxHeapCP<Comparendo> colaPrioridad = new MaxHeapCP<Comparendo>();
+		datos1 = cargarDatos();
+		shuffle(datos1);
 
-	// TODO Convertir la lista en MaxHeapCP
+		Iterator<Comparendo> it = datos1.iterator();
+		while(it.hasNext())
+		{
+			for(int i = 0; i < datos1.size(); i++)
+			{
+				Comparendo elementoActual = it.next();
+				colaPrioridad.insert(new Comparendo(elementoActual.getObjective(), elementoActual.getFecha_hora(), elementoActual.getDes_infrac(), elementoActual.getMedio_dete(), elementoActual.getClase_vehi(), elementoActual.getTipo_servi(), elementoActual.getInfraccion(), elementoActual.getLocalidad(), elementoActual.getMunicipio(), elementoActual.getLongitud(), elementoActual.getLatitud()));
+			}
+		}
+
+		return colaPrioridad;
+	}
+
 
 	/**
 	 * Desorganiza la lista y la vuelve totalmente en desorden utilizando Random
@@ -130,7 +149,7 @@ public class Modelo {
 	 * @param listaTipo Lista del clase de vehiculos
 	 * @return MaxColaCP con los comparendos mas al norte
 	 */
-	public MaxColaCP<Comparendo> darComparendosMasNorteYTipo(List<String> listaTipo)
+	public MaxColaCP<Comparendo> darComparendosMasNorteYTipoCola(List<String> listaTipo)
 	{
 		MaxColaCP<Comparendo> colaMasNorte = new MaxColaCP<Comparendo>();
 
@@ -142,7 +161,7 @@ public class Modelo {
 
 		for(int i = 0; i < tipo.length; i++)
 		{
-			Iterator<Comparendo> comparendosMaxCola = darColaPrioridadMaxCP().iterator();
+			Iterator<Comparendo> comparendosMaxCola = darMaxColaCP().iterator();
 			while(comparendosMaxCola.hasNext())
 			{
 				Comparendo elementoActual = comparendosMaxCola.next();
@@ -154,6 +173,32 @@ public class Modelo {
 		}
 		
 		return colaMasNorte;	
+	}
+	
+	public MaxHeapCP<Comparendo> darComparendosMasNorteYTipoHeap(List<String> listaTipo)
+	{
+		MaxHeapCP<Comparendo> heapMasNorte = new MaxHeapCP<Comparendo>();
+
+		String tipo[] = new String[listaTipo.size()];
+		for(int i = 0; i < listaTipo.size(); i++)
+		{
+			tipo[i] = listaTipo.get(i);
+		}
+
+		for(int i = 0; i < tipo.length; i++)
+		{
+			Iterator<Comparendo> comparendosMaxHeap = darMaxHeapCP().iterator();
+			while(comparendosMaxHeap.hasNext())
+			{
+				Comparendo elementoActual = comparendosMaxHeap.next();
+				if(elementoActual.getClase_vehi().equals(tipo[i]))
+				{
+					heapMasNorte.insert(new Comparendo(elementoActual.getObjective(), elementoActual.getFecha_hora(), elementoActual.getDes_infrac(), elementoActual.getMedio_dete(), elementoActual.getClase_vehi(), elementoActual.getTipo_servi(), elementoActual.getInfraccion(), elementoActual.getLocalidad(), elementoActual.getMunicipio(), elementoActual.getLongitud(), elementoActual.getLatitud()));
+				}
+			}
+		}
+		
+		return heapMasNorte;	
 	}
 	
 	// TODO hacer el metodo del requerimiento 2 puede ser parecido al de arriba
