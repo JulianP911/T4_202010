@@ -90,7 +90,7 @@ public class Controller {
 				int entrada3 = lector.nextInt();
 
 
-				view.printMessage("Ingrese los tipos de servicio de los comparendos de la forma (e.j. MOTO,CARRO,BUS,ETC): ");
+				view.printMessage("Ingrese los tipos de servicio de los comparendos de la forma (e.j. AUTOMÓVIL,MOTOCICLETA,CAMIONETA,ETC): ");
 				String entrada4 = lector.next();
 				String str2[] = entrada4.split(",");
 				List<String> listaTipo2 = new ArrayList<String>();
